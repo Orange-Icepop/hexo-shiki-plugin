@@ -131,9 +131,6 @@ export async function renderMarkdownCodeBlocks(
 
     const metaAttr = meta ? ` data-meta="${escapeHtml(meta)}"` : "";
     let codeBlockHtml = `<figure class="shiki${language ? ` ${language}` : ""}"${metaAttr}>`;
-    if (meta) {
-      codeBlockHtml += `<div class="code-meta">${escapeHtml(meta)}</div>`;
-    }
     codeBlockHtml += "<div class='codeblock'>";
 
     if (options.lineNumber) {

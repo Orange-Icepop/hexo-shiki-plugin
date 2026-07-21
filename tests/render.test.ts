@@ -77,7 +77,9 @@ describe("renderMarkdownCodeBlocks", () => {
   });
 
   it("renders fenced blocks with meta / file path info", async () => {
-    const highlighter = vi.fn().mockResolvedValue("<pre><code>highlighted</code></pre>");
+    const highlighter = vi
+      .fn()
+      .mockResolvedValue("<pre><code>highlighted</code></pre>");
 
     const html = await renderMarkdownCodeBlocks(
       "```js /etc/scripts/ps.js\nconst value = 1;\n```\n",
@@ -85,8 +87,8 @@ describe("renderMarkdownCodeBlocks", () => {
       { codeToHtml: highlighter },
     );
 
-    expect(html).toContain('<div class="code-meta">/etc/scripts/ps.js</div>');
     expect(html).toContain('data-meta="/etc/scripts/ps.js"');
+    expect(html).not.toContain('<div class="code-meta">');
     expect(html).toContain('<figure class="shiki js"');
     expect(highlighter).toHaveBeenCalledWith("const value = 1;", {
       lang: "js",
@@ -95,7 +97,9 @@ describe("renderMarkdownCodeBlocks", () => {
   });
 
   it("does not render code-meta when no path is given", async () => {
-    const highlighter = vi.fn().mockResolvedValue("<pre><code>highlighted</code></pre>");
+    const highlighter = vi
+      .fn()
+      .mockResolvedValue("<pre><code>highlighted</code></pre>");
 
     const html = await renderMarkdownCodeBlocks(
       "```js\nconst value = 1;\n```\n",
